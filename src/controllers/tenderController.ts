@@ -71,3 +71,24 @@ export const addTender = async (req: Request, res: Response) => {
   console.log('New tender added');
   res.redirect('/tenders');
 };
+
+export const submitOffer = async (req: Request, res: Response): Promise<any> => {
+  const tenderId = req.params.id;
+  const { bidderName, offerValue } = req.body;
+
+  const db = await getDBConnection();
+  const tender = await getTenderById(tenderId);
+
+  const now = new Date();
+  if (new Date(tender.endDate) < now) {
+    return res.status(400).send('Przetarg zakończony, nie można składać oferty.');
+  }
+
+  await db.run(`
+    INSERT INTO offers (tenderId, bidderName, offerValue)
+    VALUES (?, ?, ?)
+  `, [tenderId, bidderName, offerValue]);
+
+  console.log('New offer submitted');
+  res.redirect(`/tenders/${tenderId}`);
+};
