@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista przetargów</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Aktualne przetargi</h1>
+  <ul>
+    <% tenders.forEach(tender => { %>
+      <li>
+        <strong><%= tender.title %></strong><br>
+        Od: <%= tender.startDate %> do <%= tender.endDate %>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
