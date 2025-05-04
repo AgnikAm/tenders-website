@@ -11,3 +11,12 @@ export const getTenderById = async (id: string) => {
   const row = await db.get('SELECT * FROM tenders WHERE id = ?', [id]);
   return row;
 };
+
+export const getOffersForTender = async (tenderId: string) => {
+  const db = await getDBConnection();
+  const offers = await db.all(
+    'SELECT * FROM offers WHERE tenderId = ?',
+    [tenderId]
+  );
+  return offers;
+};
