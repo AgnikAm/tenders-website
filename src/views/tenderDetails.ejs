@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Lista trwających przetargów</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
+<% title = 'Szczegóły przetargu' %>
+
 <h1><%= tender.title %></h1>
 <p><%= tender.description %></p>
 <p><strong>Instytucja zamawiająca:</strong> <%= tender.institution %></p>
@@ -12,20 +7,20 @@
 <p><strong>Data zakończenia:</strong> <%= tender.endDate %></p>
 
 <% if (isActive) { %>
-  <h3>Składaj ofertę:</h3>
-  <form action="/tenders/<%= tender.id %>/offer" method="POST">
-    <div>
-      <label for="bidderName">Nazwa składającego ofertę:</label>
-      <input type="text" id="bidderName" name="bidderName" required />
+  <h3 class="mt-4">Składaj ofertę:</h3>
+  <form action="/tenders/<%= tender.id %>/offer" method="POST" class="row g-3">
+    <div class="col-md-6">
+      <label for="bidderName" class="form-label">Nazwa składającego ofertę:</label>
+      <input type="text" id="bidderName" name="bidderName" class="form-control" required />
     </div>
-    <div>
-      <label for="offerValue">Wartość oferty:</label>
-      <input type="number" id="offerValue" name="offerValue" required />
+    <div class="col-md-6">
+      <label for="offerValue" class="form-label">Wartość oferty:</label>
+      <input type="number" id="offerValue" name="offerValue" class="form-control" required />
     </div>
-    <button type="submit">Złóż ofertę</button>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">Złóż ofertę</button>
+    </div>
   </form>
 <% } else { %>
-  <p>Przetarg zakończony, składanie ofert nie jest możliwe.</p>
+  <div class="alert alert-warning mt-4">Przetarg zakończony, składanie ofert nie jest możliwe.</div>
 <% } %>
-<p><a href="/tenders">Powrót do listy aktywnych przetargów</a></p>
-</html>

@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Lista trwających przetargów</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <h1>Zakończone przetargi</h1>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Tytuł</th>
-        <th>Status</th>
-        <th>Data zakończenia przyjmowania ofert</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% tenders.forEach((tender, index) => { %>
-        <tr>
-          <td><%= index + 1 %></td>
-          <td><a href="/finished-tenders/<%= tender.id %>"><%= tender.title %></a></td>
-          <td>Zakończony</td>
-          <td><%= new Date(tender.endDate).toLocaleString() %></td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
+<% title = 'Zakończone przetargi' %>
 
-  <p><a href="/">Powrót do strony głównej</a></p>
-</body>
-</html>
+<h1 class="mb-4">Zakończone przetargi</h1>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Tytuł</th>
+      <th>Status</th>
+      <th>Data zakończenia przyjmowania ofert</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tenders.forEach((tender, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><a href="/finished-tenders/<%= tender.id %>"><%= tender.title %></a></td>
+        <td>Zakończony</td>
+        <td><%= new Date(tender.endDate).toLocaleString('pl-PL') %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
