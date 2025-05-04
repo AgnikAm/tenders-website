@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { getDBConnection } from '../utils/db';
 import { getAllTenders, getTenderById, getOffersForTender } from '../models/tenderModel';
 
 export const listActiveTenders = async (req: Request, res: Response) => {
@@ -56,4 +57,17 @@ export const getFinishedTenderDetails = async (req: Request, res: Response): Pro
     offers: validOffers,
     noValidOffers: validOffers.length === 0
   });
+};
+
+export const addTender = async (req: Request, res: Response) => {
+  const { title, institution, description, startDate, endDate, maxBudget } = req.body;
+
+  const db = await getDBConnection();
+  await db.run(`
+    INSERT INTO tenders (title, description, institution, startDate, endDate, maxBudget)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `, [title, description, institution, startDate, endDate, maxBudget]);
+
+  console.log('New tender added');
+  res.redirect('/tenders');
 };

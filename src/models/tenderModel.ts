@@ -20,3 +20,11 @@ export const getOffersForTender = async (tenderId: string) => {
   );
   return offers;
 };
+
+export const addNewTender = async (title: string, institution: string, description: string, startDate: string, endDate: string, maxBudget: number) => {
+  const db = await getDBConnection();
+  await db.run(`
+    INSERT INTO tenders (title, description, institution, startDate, endDate, maxBudget)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `, [title, description, institution, startDate, endDate, maxBudget]);
+};
